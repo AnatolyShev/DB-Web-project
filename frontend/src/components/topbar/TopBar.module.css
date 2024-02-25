@@ -1,0 +1,25 @@
+.wrap {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0px;
+    position: fixed;
+    width: 100%;
+    background-color: white;
+}
+
+.header {
+    padding: 0px 10px;
+    margin: 0px 10px 1px 10px;
+    transition: .1s linear;
+}
+
+.header-active {
+    margin-bottom: 0px;
+    border-bottom: solid 1px black;
+}
+
+.header:hover {
+    margin-bottom: 0px;
+    border-bottom: solid 1px black;
+    cursor: pointer;
+}
