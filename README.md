@@ -6,7 +6,29 @@
 
 # II Данные
 ## Для каждого элемента данных - ограничения
-
+1. User Table
+ -- Поля
+  - id (Integer, Primary Key, AutoIncrement) - идентификатор пользователя
+  - email (String, Unique) - электронная почта пользователя
+  - name (String) - имя пользователя
+  - telegram (String) - телеграм пользователя
+  - is_superuser (Boolean) - роль пользователя (true: Admin, false: User)
+ -- ForeignKey
+    
+2. Order Table
+ -- Поля
+  - id (Integer, Primary Key, AutoIncrement)
+  - id_user (Integer)
+  - date (Date)
+  - in_work (Boolean)
+  - is_completed (Boolean)
+  - note (String)
+  - 
+3. OrderInfos Table
+ -- Поля
+  - 
+4. 
+5. 
 ## Общие ограничения целостности
 
 ## Схема базы данных
@@ -28,8 +50,8 @@
 2. JavaScript
 
 ## СУБД
-1.PostgreSGL
-2.DBeaver
-3.pgAdmin 4
+1. PostgreSGL
+2. DBeaver
+3. pgAdmin 4
 
 # VI Тестирование
