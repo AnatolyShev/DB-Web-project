@@ -12,14 +12,14 @@ if TYPE_CHECKING:
     from sqlalchemy.orm import Session
 
 
-#smtpObj = smtplib.SMTP('smtp.gmail.com', 587)
-#smtpObj.starttls()
-#smtpObj.login('blasckad@gmail.com','ayii lwae vgsp ubqu')
+smtpObj = smtplib.SMTP('smtp.gmail.com', 587)
+smtpObj.starttls()
+smtpObj.login('tolyashevtsov11@gmail.com','ildu kxay appz gdgq')
 
 def send_code(email: str):
-    print(1)
-    #code = security.create_confirm_code(email=email)
-    #smtpObj.sendmail("logtop", email, code)
+    #print(1)
+    code = security.create_confirm_code(email=email)
+    smtpObj.sendmail("db-web-project", email, code)
 
 def add_tables():
     inspector = _inspector.from_engine(database.engine)
