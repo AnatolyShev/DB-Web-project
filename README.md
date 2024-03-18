@@ -1,8 +1,8 @@
 # DB and Web Project
 # I Описание
-Проект онлайн-магазина книг и канцелярских товаров
+Проект онлайн-магазина книг и канцелярских товаров.
 ## Наименование
-StoreBook - онлайн книжный магазин 
+Bookovka - онлайн книжный магазин 
 ## Предметная область
 Учебный проект, онлайн-магазин товаров
 # II Данные
@@ -12,62 +12,64 @@ StoreBook - онлайн книжный магазин
      - id (Integer, Primary Key, AutoIncrement) - идентификатор пользователя
      - email (String, Unique) - электронная почта пользователя
      - name (String) - имя пользователя
-     - telegram (String) - телеграм пользователя
-     - is_superuser (Boolean) - роль пользователя (true: Admin, false: User)
+     - password (String) - пароль пользователя
+     - is_superuser (Boolean, Default= false) - роль пользователя (true: Admin, false: User)
    - ForeignKey:
-     - id_order (integer, Foreign Key referencing Order.id) - ссылка на идентификатор заказа пользователя
+     - id_order (integer, Foreign Key referencing Order.id) - ссылка на идентификатор корзины пользователя
 
-2. Order Table
+2. Basket Table
    - Поля:
      - id (Integer, Primary Key, AutoIncrement) - идентификатор заказа
      - id_user (Integer) - идентификатор пользователя, сделавшего заказ
-     - date (Date) - дата заказа
-     - in_work (Boolean) - состояние заказа
-     - is_completed (Boolean) - состояние заказа
-     - note (String) - описание заказа
    - ForeignKey:
      - id_user (integer, Foreign Key referencing User.id) - ссылка на идентификатор пользователя заказа
-     - id_order_info (integer, Foreign Key referencing OrderInfos.id) - ссылка на идентификатор доп.информации о заказе
 
-3. OrderInfos Table
+3. BasketGoods Table
    - Поля:
      - id (Integer, Primary Key, AutoIncrement) - идентификатор
-     - id_order (Integer) - идентификатор заказа
-     - id_service (Integer) - идентификатор услуги
-     - count (Integer) - количество
+     - id_basket (Integer) - идентификатор корзины
+     - id_goods (Integer) - идентификатор товара
+     - goods_amount (Integer, NotNull) - количество помещённого в корзину товара
    - ForeignKey:
-     - id_order (integer, Foreign Key referencing Order.id) - ссылка на идентификатор заказа
-     - id_service (integer, Foreign Key referencing Service.id) - ссылка на идентификатор услуги заказа
+     - id_basket (integer, Foreign Key referencing Basket.id) - ссылка на идентификатор корзины
+     - id_goods (integer, Foreign Key referencing Goods.id) - ссылка на идентификатор товара
 
-4. Service Table
+4. Goods Table
    - Поля:
-     - id (Integer, Primary Key, AutoIncrement) - идентификатор услуги
-     - name (String) - название услуги
-     - annotation (String) - аннотация/описание услуги
-     - cost (Integer) - стоимость услуги
-     - type (Integer) - тип услуги
+     - id (Integer, Primary Key, AutoIncrement) - идентификатор товара
+     - name (String, NotNull) - название товара
+     - description (String, Default="") - аннотация/описание товара
+     - price (Integer, NotNull) - стоимость товара
+     - amount (Integer, NotNull) - количество товара в магазине
+     - id_brand (Integer) - "бренд" товара
+     - id_subtype (Integer) - подтип товара
    - ForeignKey:
-     - id_type (integer, Foreign Key referencing ServiceType.id) - ссылка на идентификатор типа услуги
+     - id_subtype (integer, Foreign Key referencing Subtype.id) - ссылка на идентификатор подтипа товара
+     - id_brand (integer, Foreign Key referencing Brand.id) - ссылка на идентификатор бренда товара
 
-5. ServiceType Table
+5. Subtype Table
    - Поля:
-     - id (Integer, Primary Key, AutoIncrement) - идентификатор типа услуги
-     - name (String) - название типа
-     - annotation (String) - описание
-     - super_type (Integer) - супер тип
+     - id (Integer, Primary Key, AutoIncrement) - идентификатор подтипа товара
+     - name (String, Unique, NotNull) - название подтипа
+     - id_type (Integer) - идентификатор типа подтипа
    - ForeignKey:
-     - id_super_type (integer, Foreign Key referencing SuperType.id) - ссылка на идентификатор супер типа
+     - id_type (integer, Foreign Key referencing Type.id) - ссылка на идентификатор типа
 
-6. SuperType Table
+6. Type Table
    - Поля:
      - id (Integer, Primary Key, AutoIncrement) - идентификатор
-     - name (String) - название
-     - annotation (String) - описание
+     - name (String, Unique, NotNull) - название
+
+7. Brand Table
+   - Поля:
+     - id (Integer, Primary Key, AutoIncrement) - идентификатор бренда
+     - name (String, Unique, NotNull) - наименование бренда
 
 ## Общие ограничения целостности
 
 ## Схема базы данных
-https://dbdiagram.io/d/BD-Web-proj-65dd83475cd0412774e371e3
+![image](https://github.com/AnatolyShev/DB-Web-project/assets/109897740/72be9ac9-a0e7-48dd-8c9a-8088dc174b97)
+
 # III Пользовательские роли: наименование, ответственность, количество пользователей в этой роли
 
 # IV UI/API
@@ -77,16 +79,15 @@ UI представляет собой набор страниц, с котор�
 
 # V Технологии разработки
 ## Фреймворки и библиотеки:
-1. Node.js - backend
-2. React.js - frontend
+1. Backend: Node.js, FastApi, sqlalchemy, uvicorn
+2. Frontend: React.js, Axios, react-router-dom 
 
 ## Языки программирования
 1. Python
 2. JavaScript
 
 ## СУБД
-1. PostgreSGL
-2. DBeaver
-3. pgAdmin 4
+1. PostgreSQL
+2. DBeaver 24.0.0
 
 # VI Тестирование
